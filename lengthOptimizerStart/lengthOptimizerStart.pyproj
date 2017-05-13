@@ -24,6 +24,9 @@
     <Compile Include="BasicClasses\Beam.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="BasicClasses\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="lengthOptimizerStart.py" />
   </ItemGroup>
   <ItemGroup>
