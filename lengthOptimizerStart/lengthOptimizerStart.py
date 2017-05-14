@@ -1,5 +1,6 @@
 from xlrd import open_workbook
-from BasicClasses.Beam import *
+import xlwt
+from BasicClasses import *
 
 if __name__ == "__main__":
 
@@ -22,25 +23,39 @@ if __name__ == "__main__":
             continue
 
     print("Number of beams:" + str(len(beam_list)))
-    sorted_list = beam_list.sort(key=lambda x: x.get_length(), reverse=True)
+    beam_list.sort(key=lambda x: x.get_length(), reverse=True)
 
-    container_list = []
+    container_list = [BeamContainer(6000)]
 
     for beam in beam_list:
         if isinstance(beam, BeamSegment):
             added_to_container = False
-            while added_to_container==False:
-                for container in container_list:
-                    if isinstance(container, BeamContainer):
-                        added = container.add_segment(beam)
-                        if added:
-                            added_to_container = True
-                            break
+            for container in container_list:
+                if isinstance(container, BeamContainer):
+                    if container.add_segment(beam):
+                        added_to_container = True
+                        break
+            if added_to_container:
+                continue
+            print("no container can hold current element, creating new container instance")
+            new_container = BeamContainer(6000)
+            new_container.add_segment(beam)
+            container_list.append(new_container)
+            added_to_container = True
 
+    print(len(container_list))
 
+    output_wb = xlwt.Workbook("utf-8")
+    out_sheet = output_wb.add_sheet("sheet1")
 
+    row = 0
+    for container in container_list:
+        out_sheet.write(row, 0, str(container.get_length()))
+        col = 1
+        for seg in container.beamSegments:
+            if isinstance(seg, BeamSegment):
+                out_sheet.write(row, col, str(seg.get_length()))
+                col += 1
+        row += 1
 
-
-    
-        
-
+    output_wb.save("out.xls")

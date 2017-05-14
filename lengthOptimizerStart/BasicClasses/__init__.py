@@ -1,2 +1,2 @@
-from BasicClasses.Beam import *
+from .Beam import *
 
