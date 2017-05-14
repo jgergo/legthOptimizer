@@ -22,10 +22,22 @@ if __name__ == "__main__":
             continue
 
     print("Number of beams:" + str(len(beam_list)))
-    beam_list.sort(key=lambda x: x.get_length(), reverse=True)
+    sorted_list = beam_list.sort(key=lambda x: x.get_length(), reverse=True)
+
+    container_list = []
 
     for beam in beam_list:
-        print(beam.get_length())
+        if isinstance(beam, BeamSegment):
+            added_to_container = False
+            while added_to_container==False:
+                for container in container_list:
+                    if isinstance(container, BeamContainer):
+                        added = container.add_segment(beam)
+                        if added:
+                            added_to_container = True
+                            break
+
+
 
 
 

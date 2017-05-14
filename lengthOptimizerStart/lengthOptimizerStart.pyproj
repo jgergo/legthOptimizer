@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>7b3b9d83-88ff-448b-aa05-172f7ff8fa14</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>lengthOptimizerStart.py</StartupFile>
+    <StartupFile>BasicClasses\Beam.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
